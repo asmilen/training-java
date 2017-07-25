@@ -8,7 +8,7 @@ Project này đơn thuần chỉ thiết lập trước một **Gialb-CI pipelin
 ### Setup project
 * Fork this project: [dung.dm/training-java](http://git.teko.vn/dung.dm/training-java)
 
-![Fork project](https://farm5.staticflickr.com/4320/36046430855_cdff2965f3_b.jpg)
+![Fork project](https://farm5.staticflickr.com/4292/36111959386_235ab6dbd5_b.jpg)
 
 Sau khi fork, bạn có thể đổi tên project & repo URL nếu muốn:
 
@@ -29,23 +29,32 @@ $ git remote add dung.dm http://git.teko.vn/dung.dm/training-java
 ```
 
 ### Setup development environment
-#### Install requirements:
+Requirements:
 1. Java 8+
 2. Maven 3+
+3. Tomcat 8+
 
-Kiểm tra môi trường:
+#### Kiểm tra môi trường
 ```shell
 ### Check version
 $ java -version
 $ mvn --version
 
 ### Check install path
+##### Linux
 $ which java
 $ which mvn
+...
+
+##### Windows (PowerShell)
+$ Get-Command java
+$ Get-Command mvn
 ...
 ```
 
 Cài đặt các packages còn thiếu như sau:
+#### Linux
+
 ```shell
 ### Install Java
 $ sudo apt update
@@ -55,41 +64,58 @@ $ sudo apt install default-jdk  # OpenJDK
 $ sudo apt install maven
 ```
 
-#### Install Tomcat (Optional):
-```shell
-$ sudo apt install tomcat8
+#### Windows
+* *Java*:  Download Oracle Java [here](http://oracle.com/technetwork/java/javase/downloads/) & install
+* *Maven*: Download Apache Maven [here](https://maven.apache.org/download.cgi) & extract
+* Set environment variables như sau:
+![Add environment variable](https://farm5.staticflickr.com/4308/36111377126_da1f60ea15_b.jpg)
+
+Ví dụ:  
 ```
+JAVA_HOME:  C:\Program Files\Java\jdk1.8.0_121
+MAVEN_HOME: C:\Program Files\Apache\apache-maven-3.5.0
+PATH:       %PATH%;%JAVA_HOME%\bin;%MAVEN_HOME%\bin
+```
+
+#### Install Tomcat
+Download Tomcat [here](https://tomcat.apache.org/download-80.cgi) & extract
 
 ## Run & test :gear:
 ### Run
-#### 1. Run with embedded Java web server
+#### 1. Run using command line
+Download [Webapp Runner](https://mvnrepository.com/artifact/com.github.jsimone/webapp-runner) (Tomcat base) 
+or [Jetty Runner](https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-runner) then:
+
 ```shell
-$ php -S localhost:8000 -t public
-# -- or--
-$ php artisan serve [--port=8000]   # for Laravel
+$ mvn package
+$ java -jar webapp-runner.jar --port 8080 ./target/application.war
 ```
 
-#### 2. Run using Tomcat
-Copy/paste `nginx-sites.conf.j2` template vào *nginx default site*:
-```shell
-$ sudo cp ansible/templates/nginx-sites.conf.j2 /etc/nginx/sites-available/default
-```
-Sau đó, sửa lại 1 số config như sau:
-* `server_name {{app_name}}.{{username}}.*;` sửa thành `server_name _;`
-* `{{app_root}}` sửa thành đường dẫn **tuyệt đối** của project.
+Xem thêm [1](https://devcenter.heroku.com/articles/java-webapp-runner) & [2](https://devcenter.heroku.com/articles/deploy-a-java-web-application-that-launches-with-jetty-runner)
 
-Restart nginx
-```shell
-$ sudo service nginx restart
+#### 2. Run in your IDE
+* JetBrains IntelliJ:  
+Tạo Run/Debug Configurations như sau:
+![Setup Tomcat in IntelliJ](https://farm5.staticflickr.com/4329/36111376946_1ba5fc35bd_b.jpg)
+
+#### 3. Run inside Tomcat
+```
+$ mvn package
+
+# Copy your war file into Tomcat's webapps folder 
+$ cp ./target/application.war ${TOMCAT_HOME}/webapps
+
+# Start server
+$ ${TOMCAT_HOME}/bin/startup
+
+# Open this URL in your browser
+$ localhost:8080/application
 ```
 
 ### Test
 ```shell
-### Unit test
+### JUnit test
 $ mvn test
-
-### Pytest with coverage
-$ phpunit --coverage-text
 ```
 
 ## Folder structure
