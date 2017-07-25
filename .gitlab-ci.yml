@@ -1,0 +1,50 @@
+stages:
+  - test
+  - deploy
+
+variables:
+  HOST_URL: 35.186.148.164
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  # See http://maven.apache.org/ref/3.5.0/maven-embedder/cli.html
+  MAVEN_CLI_OPTS: "--batch-mode"
+
+# docker run -it --rm -v $(pwd):/app maven:3.5-jdk-8-alpine sh
+test:junit:
+  stage: test
+  image: maven:3.5-jdk-8-alpine
+  # Enable this if your test need database
+#  services:
+#    - mysql:5.7
+#  variables:
+#    MYSQL_HOST: "mysql"
+#    MYSQL_PORT: "3306"
+#    MYSQL_DATABASE:      "app"
+#    MYSQL_ROOT_PASSWORD: "supersecret"
+  cache:
+    key: maven-cache
+    paths: [ .m2/repository ]
+  before_script:
+    - mvn dependency:resolve $MAVEN_CLI_OPTS
+  script:
+    - mvn test $MAVEN_CLI_OPTS
+  coverage: '/^TOTAL\s+\d+\s+\d+\s+(\d+\%)\s*$/'
+  tags:
+    - training
+
+.deploy:production:
+  stage: deploy
+  image: dungdm93/ansible:ubuntu16.04
+#  variables:
+#    REQUIRE_DB: MySQL
+#    DATABASE_PASSWORD: foobar     # default qwerty
+  script:
+    - ansible-playbook ansible/playbook.yml -i ansible/hosts
+  environment:
+    name: production
+    url:  http://${CI_PROJECT_NAME}.${CI_PROJECT_NAMESPACE}.${HOST_URL}.xip.io
+  allow_failure: false
+#  when: manual
+  only:
+    - master
+  tags:
+    - training
