@@ -3,18 +3,31 @@ package vn.teko.training;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.servlet.http.HttpSession;
 
 public class GreetingServlet extends HttpServlet {
     static final Logger LOG = LoggerFactory.getLogger(GreetingServlet.class);
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.getWriter().println("Hello World!");
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        response.setContentType("text/html");
+
+        HttpSession session=request.getSession(false);
+
+        if(session!=null){
+            String name=(String)session.getAttribute("name");
+        }
+        else{
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
     }
 
     @Override
