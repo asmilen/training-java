@@ -13,8 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class GreetingServlet extends HttpServlet {
-    static final Logger LOG = LoggerFactory.getLogger(GreetingServlet.class);
 
+    /**
+     * Welcome page
+     * if user does not login yet, redirect to login page
+     * if user logged in, show the welcome page
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -29,15 +33,5 @@ public class GreetingServlet extends HttpServlet {
         } else {
             response.sendRedirect("/login");
         }
-    }
-
-    @Override
-    public void init() throws ServletException {
-        LOG.info("Servlet " + this.getServletName() + " has started");
-    }
-
-    @Override
-    public void destroy() {
-        LOG.info("Servlet " + this.getServletName() + " has stopped");
     }
 }
