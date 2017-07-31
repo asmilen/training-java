@@ -22,11 +22,12 @@ public class GreetingServlet extends HttpServlet {
 
         HttpSession session=request.getSession(false);
 
-        if(session!=null){
-            String name=(String)session.getAttribute("name");
-        }
-        else{
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        if ((session != null) && (session.getAttribute("email") != null)) {
+            String email=(String)session.getAttribute("email");
+            request.setAttribute("email",email);
+            request.getRequestDispatcher("welcome.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/login");
         }
     }
 

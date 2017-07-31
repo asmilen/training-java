@@ -9,24 +9,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet {
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");
-		PrintWriter out=response.getWriter();
-		request.getRequestDispatcher("link.html").include(request, response);
 
-		String name=request.getParameter("name");
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        response.setContentType("text/html");
+
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
+    }
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.getRequestDispatcher("login.jsp").include(request, response);
+
+		String email=request.getParameter("email");
 		String password=request.getParameter("password");
 
-		if(password.equals("admin123")){
-		out.print("Welcome, "+name);
-		HttpSession session=request.getSession();
-		session.setAttribute("name",name);
+		if (email.equals("admin@teko.vn") && password.equals("admin123")) {
+            HttpSession session=request.getSession();
+            session.setAttribute("email",email);
+            response.sendRedirect("/welcome");
+		} else {
+            request.setAttribute("error","Email or password is invalid");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
-		else{
-			out.print("Sorry, username or password error!");
-			request.getRequestDispatcher("login.html").include(request, response);
-		}
-		out.close();
 	}
 
 }
