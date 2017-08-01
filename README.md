@@ -83,15 +83,16 @@ Download Tomcat [here](https://tomcat.apache.org/download-80.cgi) & extract
 ## Run & test :gear:
 ### Run
 #### 1. Run using command line
-Download [Webapp Runner](https://mvnrepository.com/artifact/com.github.jsimone/webapp-runner) (Tomcat base) 
-or [Jetty Runner](https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-runner) then:
-
 ```shell
-$ mvn package
-$ java -jar webapp-runner.jar --port 8080 ./target/application.war
+$ mvn jetty:run
+--or--
+$ mvn jetty:run -Djetty.http.port=9999
 ```
 
-Xem thêm [1](https://devcenter.heroku.com/articles/java-webapp-runner) & [2](https://devcenter.heroku.com/articles/deploy-a-java-web-application-that-launches-with-jetty-runner)
+**Cách khác**: Download [webapp runner](https://mvnrepository.com/artifact/com.github.jsimone/webapp-runner) (tomcat base) 
+hoặc [jetty runner](https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-runner)
+rồi làm theo hướng dẫn tại [1](https://devcenter.heroku.com/articles/java-webapp-runner)
+hoăc [2](https://devcenter.heroku.com/articles/deploy-a-java-web-application-that-launches-with-jetty-runner)
 
 #### 2. Run in your IDE
 * JetBrains IntelliJ:  
