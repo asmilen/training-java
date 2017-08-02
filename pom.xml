@@ -57,9 +57,9 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <url>http://localhost:8080/manager/text</url>
+                    <url>${env.HOST_URL}/manager/text</url>
                     <server>training-server</server>
-                    <path>/foobar</path>
+                    <path>/${env.CONTEXT_PATH}</path>
                 </configuration>
             </plugin>
         </plugins>
