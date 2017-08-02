@@ -3,7 +3,7 @@ stages:
   - deploy
 
 variables:
-  HOST_URL: 35.186.148.164
+  HOST_URL: http://35.186.148.164:8080
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
   # See http://maven.apache.org/ref/3.5.0/maven-embedder/cli.html
   MAVEN_CLI_OPTS: "--batch-mode"
@@ -31,17 +31,23 @@ test:junit:
   tags:
     - training
 
-.deploy:production:
+deploy:production:
   stage: deploy
-  image: dungdm93/ansible:ubuntu16.04
+  image: maven:3.5-jdk-8-alpine
 #  variables:
 #    REQUIRE_DB: MySQL
 #    DATABASE_PASSWORD: foobar     # default qwerty
+  cache:
+    key: maven-cache
+    paths: [ .m2/repository ]
+  before_script:
+    - mvn dependency:resolve $MAVEN_CLI_OPTS
   script:
-    - ansible-playbook ansible/playbook.yml -i ansible/hosts
+    - export CONTEXT_PATH=hoinhap2/${CI_PROJECT_NAMESPACE}
+    - mvn tomcat7:redeploy -DskipTests $MAVEN_CLI_OPTS
   environment:
     name: production
-    url:  http://${CI_PROJECT_NAME}.${CI_PROJECT_NAMESPACE}.${HOST_URL}.xip.io
+    url:  ${HOST_URL}/hoinhap2/${CI_PROJECT_NAMESPACE}
   allow_failure: false
 #  when: manual
   only:

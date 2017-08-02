@@ -40,4 +40,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>application</finalName>
+        <plugins>
+            <plugin>
+                <!--http://www.eclipse.org/jetty/documentation/9.4.x/jetty-maven-plugin.html-->
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.6.v20170531</version>
+            </plugin>
+            <plugin>
+                <!--http://tomcat.apache.org/maven-plugin-trunk/-->
+                <!--http://tomcat.apache.org/maven-plugin-trunk/tomcat7-maven-plugin/deploy-mojo.html-->
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>${env.HOST_URL}/manager/text</url>
+                    <server>training-server</server>
+                    <path>/${env.CONTEXT_PATH}</path>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
