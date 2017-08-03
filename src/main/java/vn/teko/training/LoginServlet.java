@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String contextPath = request.getContextPath();
+        response.setContentType("text/html; charset=UTF-8");
 
 		request.getRequestDispatcher("login.jsp").include(request, response);
 
@@ -40,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 		if (isValidEmail(email) && password.equals("QC123456")) {
             HttpSession session=request.getSession();
             session.setAttribute("email",email);
-            response.sendRedirect(contextPath + "/welcome");
+            response.sendRedirect(contextPath + "/");
 		} else {
             request.setAttribute("error","Email hoặc mật khẩu không hợp lệ");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
