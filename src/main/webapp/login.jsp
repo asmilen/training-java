@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html >
 <head>
-    <base href="${pageContext.request.contextPath}">
+    <base href="${pageContext.request.contextPath}/">
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="web/css/style.css">

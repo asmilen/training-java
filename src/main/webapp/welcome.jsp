@@ -3,7 +3,7 @@
     <head>
 	    <meta charset="UTF-8">
         <title>Trang chủ</title>
-        <base href="${pageContext.request.contextPath}">
+        <base href="${pageContext.request.contextPath}/">
         <link href="web/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="web/css/core.css" rel="stylesheet" type="text/css" />
         <link href="web/css/components.css" rel="stylesheet" type="text/css" />
