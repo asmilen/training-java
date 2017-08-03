@@ -4,7 +4,7 @@
     <base href="${pageContext.request.contextPath}">
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="/web/css/style.css">
+    <link rel="stylesheet" href="web/css/style.css">
 </head>
 
 <body>
@@ -27,7 +27,7 @@
     </form>
     <footer>
         <a href="https://teko.facebook.com/" target="_blank">
-        <img src="/web/images/logo.png" height="40" width="100"></a>
+        <img src="web/images/logo.png" height="40" width="100"></a>
     </footer>
 </body>
 </html>

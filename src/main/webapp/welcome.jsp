@@ -3,10 +3,11 @@
     <head>
 	    <meta charset="UTF-8">
         <title>Trang chủ</title>
-        <link href="/web/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="/web/css/core.css" rel="stylesheet" type="text/css" />
-        <link href="/web/css/components.css" rel="stylesheet" type="text/css" />
-		<link href="/web/css/pages.css" rel="stylesheet" type="text/css" />
+        <base href="${pageContext.request.contextPath}">
+        <link href="web/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="web/css/core.css" rel="stylesheet" type="text/css" />
+        <link href="web/css/components.css" rel="stylesheet" type="text/css" />
+		<link href="web/css/pages.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
     	<div class="account-pages"></div>

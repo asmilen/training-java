@@ -22,6 +22,8 @@ public class GreetingServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        String contextPath = request.getContextPath();
+
         response.setContentType("text/html");
 
         HttpSession session=request.getSession(false);
@@ -31,7 +33,7 @@ public class GreetingServlet extends HttpServlet {
             request.setAttribute("email",email);
             request.getRequestDispatcher("welcome.jsp").forward(request, response);
         } else {
-            response.sendRedirect("/login");
+            response.sendRedirect(contextPath + "/login");
         }
     }
 }
