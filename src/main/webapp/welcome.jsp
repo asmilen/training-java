@@ -17,7 +17,7 @@
                 <h1>WELCOME, ${email}</h1><br>
                 <h3 class="text-muted">You have successfully logged in</h3>
                 <br>
-                <a class="btn btn-default waves-effect waves-light" href="/logout">Log out</a>
+                <a class="btn btn-default waves-effect waves-light" href="logout">Log out</a>
             </div>
         </div>
 	</body>
