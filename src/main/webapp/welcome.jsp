@@ -16,9 +16,9 @@
         <div class="wrapper-page">
             <div class="ex-page-content text-center">
                 <h1>WELCOME, ${email}</h1><br>
-                <h3 class="text-muted">You have successfully logged in</h3>
+                <h3 class="text-muted">Chúc mừng bạn đã đăng nhập thành công</h3>
                 <br>
-                <a class="btn btn-default waves-effect waves-light" href="logout">Log out</a>
+                <a class="btn btn-default waves-effect waves-light" href="logout">Đăng xuất</a>
             </div>
         </div>
 	</body>
